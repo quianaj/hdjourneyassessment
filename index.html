@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heirs + Daughters™ | Journey Assessment</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #ffffff;
+    --warm-white: #f4fcfc;
+    --gold: #00939b;
+    --gold-light: #33adb4;
+    --deep: #1a1a1a;
+    --muted: #5b5b5b;
+    --sage: #00939b;
+    --blush: #ed1c24;
+    --border: rgba(0, 147, 155, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--deep);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      radial-gradient(ellipse at 20% 20%, rgba(184,146,74,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(212,165,160,0.08) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 60px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 52px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 16px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .header-sub {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 28px;
+    font-weight: 300;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+    margin: 24px 0;
+  }
+  .divider-line { height: 1px; width: 60px; background: var(--border); }
+  .divider-icon { color: var(--gold); font-size: 14px; }
+
+  /* INTRO SECTION */
+  .intro {
+    padding: 48px 0 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .intro-box {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 32px 36px;
+  }
+
+  .intro-box p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .intro-box strong { color: var(--deep); font-weight: 500; }
+
+  /* FORM SECTION */
+  .form-section {
+    padding: 48px 0;
+  }
+
+  .progress-bar-wrap {
+    margin-bottom: 40px;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+
+  .progress-track {
+    height: 2px;
+    background: rgba(184,146,74,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* CLIENT INFO */
+  .client-info {
+    margin-bottom: 48px;
+  }
+
+  .section-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .field-row.full { grid-template-columns: 1fr; }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .field input {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 12px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--deep);
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .field input:focus {
+    border-color: var(--gold);
+  }
+
+  /* QUESTIONS */
+  .question-block {
+    margin-bottom: 36px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid rgba(184,146,74,0.12);
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .question-block:last-of-type {
+    border-bottom: none;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-number {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--deep);
+    margin-bottom: 20px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+  }
+
+  .option input[type="radio"] {
+    display: none;
+  }
+
+  .option-box {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 13px 18px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-weight: 300;
+  }
+
+  .option-box:hover {
+    border-color: var(--gold-light);
+    color: var(--deep);
+    background: #FEFCF7;
+  }
+
+  .option input[type="radio"]:checked + .option-box {
+    border-color: var(--gold);
+    background: rgba(184,146,74,0.06);
+    color: var(--deep);
+  }
+
+  .option-letter {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    font-weight: 500;
+    min-width: 14px;
+    padding-top: 1px;
+    flex-shrink: 0;
+  }
+
+  /* SUBMIT */
+  .submit-area {
+    padding: 40px 0 60px;
+    text-align: center;
+  }
+
+  .submit-note {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .btn-submit {
+    background: var(--deep);
+    color: var(--cream);
+    border: none;
+    padding: 18px 52px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+  }
+
+  .btn-submit:hover {
+    background: var(--gold);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* THANK YOU */
+  #thank-you {
+    display: none;
+    text-align: center;
+    padding: 100px 0;
+  }
+
+  #thank-you.visible { display: block; }
+
+  .ty-icon {
+    font-size: 40px;
+    margin-bottom: 28px;
+    display: block;
+  }
+
+  #thank-you h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--deep);
+    margin-bottom: 16px;
+  }
+
+  #thank-you p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  #assessment-form.hidden { display: none; }
+
+  .error-msg {
+    color: #c0392b;
+    font-size: 12px;
+    margin-top: 16px;
+    display: none;
+  }
+
+  .error-msg.show { display: block; }
+
+  /* Responsive */
+  @media (max-width: 540px) {
+    .field-row { grid-template-columns: 1fr; }
+    .header { padding: 40px 0 36px; }
+    .intro-box { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="header">
+    <span class="brand-mark">Heirs + Daughters™ Inner Circle</span>
+    <h1>Your <em>Healing Journey</em><br>Begins Here</h1>
+    <p class="header-sub">A 25-question assessment to identify your deepest area of need and the journey designed to meet you there.</p>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-icon">✦</span>
+      <div class="divider-line"></div>
+    </div>
+  </header>
+
+  <div class="intro">
+    <div class="intro-box">
+      <p>There is no right or wrong answer here. This assessment is not a test — it is an <strong>invitation to honest reflection</strong>.</p>
+      <p>Answer each question based on where you are <strong>right now</strong>, not where you wish you were or where you used to be. The more honest you are, the more precisely your journey will be tailored to your healing.</p>
+      <p>Take your time. Breathe. You are in a safe space.</p>
+    </div>
+  </div>
+
+  <div id="assessment-form" class="form-section">
+
+    <div class="progress-bar-wrap">
+      <div class="progress-label">
+        <span>Assessment Progress</span>
+        <span id="progress-text">0 of 25</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="client-info">
+      <span class="section-label">Your Information</span>
+      <div class="field-row">
+        <div class="field">
+          <label>First Name</label>
+          <input type="text" id="fname" placeholder="Your first name" required>
+        </div>
+        <div class="field">
+          <label>Last Name</label>
+          <input type="text" id="lname" placeholder="Your last name" required>
+        </div>
+      </div>
+      <div class="field-row full">
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="email" placeholder="your@email.com" required>
+        </div>
+      </div>
+    </div>
+
+    <span class="section-label">Reflection Questions</span>
+
+    <div id="questions-wrap"></div>
+
+    <div class="submit-area">
+      <p class="submit-note">Your responses will be reviewed by Queen before your session. Your results will not be shown on screen — she'll walk through them with you personally.</p>
+      <div class="error-msg" id="error-msg">Please complete all questions and fill in your name and email before submitting.</div>
+      <button class="btn-submit" id="submit-btn" onclick="submitAssessment()">Submit My Assessment</button>
+    </div>
+
+  </div>
+
+  <div id="thank-you">
+    <span class="ty-icon">✦</span>
+    <h2>You Did the Brave Thing.</h2>
+    <p>Your assessment has been received. Queen will review your responses before your session so she can walk with you with intention. See you soon, Daughter.</p>
+  </div>
+
+</div>
+
+<script>
+// ─── QUESTIONS ───────────────────────────────────────────────────────────────
+// Scoring key: J1 = Limiting Beliefs/Inner Critic, J2 = Emotional Mastery, J3 = Rejection/Abandonment
+// Each answer is scored: most aligned to journey = 3pts, secondary = 2pts, least = 1pt
+// Neutral options carry mixed scores. 4 options per question.
+
+const questions = [
+  {
+    q: "When you imagine stepping into a bigger version of yourself — more visible, more vocal, more impactful — what is the first thing that rises up inside you?",
+    opts: [
+      { text: "A voice that says I'm not ready or qualified enough", scores: [3,1,1] },
+      { text: "A wave of anxiety about how people might respond", scores: [1,3,1] },
+      { text: "A quiet fear that I'll get close and still be left behind", scores: [1,1,3] },
+      { text: "A feeling of being generally overwhelmed", scores: [2,2,2] }
+    ]
+  },
+  {
+    q: "Think about a time you received meaningful feedback or praise. What was your internal response?",
+    opts: [
+      { text: "I minimized it or found reasons why it wasn't a big deal", scores: [3,1,1] },
+      { text: "I felt briefly good, but became anxious about maintaining expectations", scores: [1,3,1] },
+      { text: "I wondered if they really meant it or if they'd eventually pull away", scores: [1,1,3] },
+      { text: "I received it well and felt genuinely encouraged", scores: [1,1,1] }
+    ]
+  },
+  {
+    q: "How do you typically respond when a conflict arises with someone you care about?",
+    opts: [
+      { text: "I withdraw to avoid saying or doing the wrong thing", scores: [2,1,3] },
+      { text: "I feel things intensely and struggle to stay regulated in the moment", scores: [1,3,1] },
+      { text: "I overthink it for days and replay every detail", scores: [2,2,2] },
+      { text: "I tend to shut down emotionally and go silent", scores: [1,2,3] }
+    ]
+  },
+  {
+    q: "When you think about your closest relationships, which of these feels most true right now?",
+    opts: [
+      { text: "I struggle to ask for help because I feel like a burden", scores: [2,1,3] },
+      { text: "I sometimes blow up or shut down rather than communicate clearly", scores: [1,3,1] },
+      { text: "I question whether people will stay once they really know me", scores: [1,1,3] },
+      { text: "I hold myself back from deeper connection because of past experiences", scores: [2,2,3] }
+    ]
+  },
+  {
+    q: "When you're on the edge of something new — a goal, a calling, a next level — what most often slows you down?",
+    opts: [
+      { text: "Convincing myself it won't work or that I'll fail", scores: [3,1,1] },
+      { text: "Fear of how I'll emotionally handle the pressure and stakes", scores: [1,3,1] },
+      { text: "Worrying that I'll be misunderstood or ultimately alone in it", scores: [1,1,3] },
+      { text: "Staying busy with smaller tasks instead of taking the leap", scores: [2,2,1] }
+    ]
+  },
+  {
+    q: "When you look in the mirror — not physically, but spiritually and emotionally — what do you see most honestly?",
+    opts: [
+      { text: "A woman who is capable but doesn't fully believe it yet", scores: [3,1,1] },
+      { text: "A woman who is strong but exhausted from holding so much together", scores: [1,3,1] },
+      { text: "A woman who has learned to survive but hasn't been fully seen or known", scores: [1,1,3] },
+      { text: "A woman still trying to figure out who she is beneath all the roles", scores: [2,2,2] }
+    ]
+  },
+  {
+    q: "How does your inner voice tend to speak to you when you make a mistake?",
+    opts: [
+      { text: "It is harsh, swift, and unforgiving — almost relentless", scores: [3,1,1] },
+      { text: "It spirals into worst-case scenarios and emotional distress", scores: [1,3,1] },
+      { text: "It reminds me that I always seem to disappoint people eventually", scores: [1,1,3] },
+      { text: "It is fairly balanced; I can recover, but I do feel it", scores: [1,2,1] }
+    ]
+  },
+  {
+    q: "In what area do you most often find yourself pretending or performing?",
+    opts: [
+      { text: "Pretending I have more confidence or certainty than I actually feel", scores: [3,1,1] },
+      { text: "Pretending I'm okay emotionally when I'm actually overwhelmed", scores: [1,3,1] },
+      { text: "Pretending that I don't need people as much as I actually do", scores: [1,1,3] },
+      { text: "Performing strength and togetherness in almost every context", scores: [2,2,2] }
+    ]
+  },
+  {
+    q: "What does your relationship with your own emotions feel like most days?",
+    opts: [
+      { text: "I tend to analyze them rather than feel them", scores: [3,1,1] },
+      { text: "They feel unpredictable — sometimes too much, sometimes nothing at all", scores: [1,3,1] },
+      { text: "I keep them tucked away so I won't seem like too much to others", scores: [1,2,3] },
+      { text: "I feel them deeply but rarely know what to do with them", scores: [1,3,2] }
+    ]
+  },
+  {
+    q: "When you think about the word 'belonging,' what comes up for you?",
+    opts: [
+      { text: "I belong once I've proven myself or earned my place", scores: [3,1,1] },
+      { text: "Belonging feels unstable — I never quite know if I'm truly in or out", scores: [1,2,3] },
+      { text: "I long for it deeply but protect myself from pursuing it fully", scores: [1,1,3] },
+      { text: "I belong in some spaces but feel like an outsider in others", scores: [2,2,2] }
+    ]
+  },
+  {
+    q: "How do you typically handle stress or high-pressure moments?",
+    opts: [
+      { text: "I push through and perform, then crash later in private", scores: [2,3,1] },
+      { text: "I overthink it and convince myself something will go wrong", scores: [3,1,1] },
+      { text: "My emotions escalate and it becomes hard to think clearly", scores: [1,3,1] },
+      { text: "I disconnect emotionally until the season passes", scores: [1,2,3] }
+    ]
+  },
+  {
+    q: "When you think about who you are apart from your responsibilities and titles, what do you notice?",
+    opts: [
+      { text: "I'm not entirely sure who I am beneath all of it", scores: [2,2,2] },
+      { text: "I know who I am, but I don't always believe she is enough", scores: [3,1,1] },
+      { text: "I'm still learning how to feel safe being her without apology", scores: [1,2,3] },
+      { text: "She gets buried under my need to manage and hold things together", scores: [1,3,1] }
+    ]
+  },
+  {
+    q: "Have you ever walked away from something — an opportunity, a relationship, a calling — before it could reject you?",
+    opts: [
+      { text: "Yes, and I usually rationalized it as not being the right time", scores: [2,1,3] },
+      { text: "Yes, and I didn't realize until later how fear was driving it", scores: [3,1,2] },
+      { text: "Yes — leaving first feels safer than being left", scores: [1,1,3] },
+      { text: "Not often, but I do hesitate before fully committing", scores: [2,2,1] }
+    ]
+  },
+  {
+    q: "What story do you most often tell yourself about why things haven't worked out the way you hoped?",
+    opts: [
+      { text: "That I'm somehow missing something others have", scores: [3,1,1] },
+      { text: "That my emotions or reactions get in the way of my progress", scores: [1,3,1] },
+      { text: "That the people I needed most weren't there when it counted", scores: [1,1,3] },
+      { text: "That timing, circumstances, or other people are mostly to blame", scores: [2,2,2] }
+    ]
+  },
+  {
+    q: "How often do you feel like you have to earn love, approval, or a seat at the table?",
+    opts: [
+      { text: "Almost always — it's an exhausting cycle I keep returning to", scores: [3,1,2] },
+      { text: "Often, especially when my emotions have caused tension", scores: [1,3,1] },
+      { text: "Frequently — I've learned people leave when you stop performing", scores: [1,1,3] },
+      { text: "Sometimes, but I'm aware enough to challenge the thought", scores: [2,2,1] }
+    ]
+  },
+  {
+    q: "When you set a boundary, what is the most common internal experience?",
+    opts: [
+      { text: "I feel guilty — like I'm being selfish or asking for too much", scores: [3,1,1] },
+      { text: "I feel anxious about how the other person will react emotionally", scores: [1,3,1] },
+      { text: "I fear the relationship won't survive it — that they'll leave", scores: [1,1,3] },
+      { text: "I feel a mix of relief and worry depending on the relationship", scores: [2,2,2] }
+    ]
+  },
+  {
+    q: "How would you describe your experience with expressing your feelings to someone you trust?",
+    opts: [
+      { text: "I tend to intellectualize my feelings instead of actually naming them", scores: [3,1,1] },
+      { text: "It often comes out more intensely than I intend", scores: [1,3,1] },
+      { text: "I hesitate because vulnerability has cost me before", scores: [1,1,3] },
+      { text: "I can do it, but it takes a lot of energy to get there", scores: [2,2,2] }
+    ]
+  },
+  {
+    q: "When you encounter something that triggers you emotionally, what is your first instinct?",
+    opts: [
+      { text: "To reason my way out of it or figure out what I should be thinking instead", scores: [3,1,1] },
+      { text: "To react — and often wish I had responded differently", scores: [1,3,1] },
+      { text: "To go quiet and protect myself until the feeling passes", scores: [1,2,3] },
+      { text: "To replay everything and struggle to let it go", scores: [2,3,2] }
+    ]
+  },
+  {
+    q: "What area of your inner world do you most feel needs tending to right now?",
+    opts: [
+      { text: "The way I speak to myself and what I believe about my worth", scores: [3,1,1] },
+      { text: "The way I process and express what I feel inside", scores: [1,3,1] },
+      { text: "The places where I've been hurt and haven't fully recovered", scores: [1,1,3] },
+      { text: "My overall sense of peace and stability in daily life", scores: [2,3,2] }
+    ]
+  },
+  {
+    q: "How has your history with the people closest to you — family, friendships, relationships — shaped the way you show up today?",
+    opts: [
+      { text: "It planted deep lies about my value that I'm still working to uproot", scores: [3,1,1] },
+      { text: "It left me emotionally unsure of myself in ways that still surface", scores: [1,3,2] },
+      { text: "It taught me to keep people at arm's length to stay protected", scores: [1,1,3] },
+      { text: "It shaped me significantly, but I've done a good amount of work there", scores: [1,2,2] }
+    ]
+  },
+  {
+    q: "When someone in your life distances themselves — even temporarily — what tends to happen inside you?",
+    opts: [
+      { text: "I assume I did something wrong or that I am too much", scores: [3,1,2] },
+      { text: "I feel it intensely and have trouble sitting with the uncertainty", scores: [1,3,1] },
+      { text: "Something old wakes up — a familiar ache I can't quite name", scores: [1,1,3] },
+      { text: "I notice it, but I'm usually able to give it space without spiraling", scores: [1,2,1] }
+    ]
+  },
+  {
+    q: "When you think about who God says you are versus who you believe yourself to be, what is the gap like?",
+    opts: [
+      { text: "Wide — I know the words but I haven't made them my own", scores: [3,1,1] },
+      { text: "I believe it in my mind but my emotional responses tell a different story", scores: [1,3,2] },
+      { text: "There's a deep wound in the way that makes it hard to receive His love fully", scores: [1,1,3] },
+      { text: "The gap is closing, but there are still areas where I wrestle", scores: [2,2,2] }
+    ]
+  },
+  {
+    q: "What does healing look like to you — the thing you most hope to experience on the other side of this work?",
+    opts: [
+      { text: "Walking in rooms without shrinking — fully believing I belong there", scores: [3,1,1] },
+      { text: "Feeling things without being held hostage by them", scores: [1,3,1] },
+      { text: "Loving and being loved without waiting for it to be taken away", scores: [1,1,3] },
+      { text: "A lasting sense of inner steadiness I don't have to manufacture", scores: [2,3,1] }
+    ]
+  },
+  {
+    q: "In the past six months, where have you felt the most stuck?",
+    opts: [
+      { text: "In my own head — doubting myself and second-guessing everything", scores: [3,1,1] },
+      { text: "In my patterns — reacting the same ways despite wanting to change", scores: [1,3,1] },
+      { text: "In my heart — carrying weight from people and places that still hurt", scores: [1,1,3] },
+      { text: "In multiple areas — it all feels connected and heavy", scores: [2,2,2] }
+    ]
+  },
+  {
+    q: "If you could name the one thing you most need permission to do in this season, it would be to:",
+    opts: [
+      { text: "Believe — truly, deeply believe — that I am enough as I am right now", scores: [3,1,1] },
+      { text: "Feel my feelings without shame and respond without regret", scores: [1,3,1] },
+      { text: "Open my heart again — to God, to myself, and to others", scores: [1,1,3] },
+      { text: "Finally put myself first without guilt or explanation", scores: [2,2,2] }
+    ]
+  }
+];
+
+// ─── RENDER QUESTIONS ────────────────────────────────────────────────────────
+const letters = ['A','B','C','D'];
+const wrap = document.getElementById('questions-wrap');
+
+questions.forEach((q, qi) => {
+  const block = document.createElement('div');
+  block.className = 'question-block';
+  block.style.animationDelay = `${qi * 0.04}s`;
+
+  let optsHTML = q.opts.map((opt, oi) => `
+    <label class="option">
+      <input type="radio" name="q${qi}" value="${oi}" onchange="updateProgress()">
+      <span class="option-box">
+        <span class="option-letter">${letters[oi]}</span>
+        <span>${opt.text}</span>
+      </span>
+    </label>
+  `).join('');
+
+  block.innerHTML = `
+    <span class="q-number">Question ${qi + 1} of 25</span>
+    <p class="q-text">${q.q}</p>
+    <div class="options">${optsHTML}</div>
+  `;
+  wrap.appendChild(block);
+});
+
+// ─── PROGRESS ────────────────────────────────────────────────────────────────
+function updateProgress() {
+  let answered = 0;
+  for (let i = 0; i < 25; i++) {
+    if (document.querySelector(`input[name="q${i}"]:checked`)) answered++;
+  }
+  document.getElementById('progress-text').textContent = `${answered} of 25`;
+  document.getElementById('progress-fill').style.width = `${(answered / 25) * 100}%`;
+}
+
+// ─── SCORING ─────────────────────────────────────────────────────────────────
+function scoreAssessment() {
+  let scores = [0, 0, 0]; // J1, J2, J3
+  for (let i = 0; i < 25; i++) {
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    if (sel) {
+      const optIndex = parseInt(sel.value);
+      const s = questions[i].opts[optIndex].scores;
+      scores[0] += s[0];
+      scores[1] += s[1];
+      scores[2] += s[2];
+    }
+  }
+  return scores;
+}
+
+function getJourneyLabel(index) {
+  const labels = [
+    "Journey #1: Dismantling Limiting Beliefs + Silencing the Inner Critic",
+    "Journey #2: Breaking Through to Emotional Mastery",
+    "Journey #3: Healing from the Hidden Wounds of Rejection + Abandonment"
+  ];
+  return labels[index];
+}
+
+function getStrengthLabel(score) {
+  if (score >= 55) return "Primary";
+  if (score >= 40) return "Secondary";
+  return "Low";
+}
+
+// ─── SUBMIT ───────────────────────────────────────────────────────────────────
+async function submitAssessment() {
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const errMsg = document.getElementById('error-msg');
+
+  let allAnswered = true;
+  for (let i = 0; i < 25; i++) {
+    if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+      allAnswered = false; break;
+    }
+  }
+
+  if (!fname || !lname || !email || !allAnswered) {
+    errMsg.classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+  errMsg.classList.remove('show');
+
+  const scores = scoreAssessment();
+  const total = scores[0] + scores[1] + scores[2];
+  const maxIdx = scores.indexOf(Math.max(...scores));
+
+  // Build detailed answers
+  let answersText = '';
+  for (let i = 0; i < 25; i++) {
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    const optIdx = parseInt(sel.value);
+    answersText += `Q${i+1}: ${questions[i].q}\nAnswer: ${letters[optIdx]}. ${questions[i].opts[optIdx].text}\n\n`;
+  }
+
+  const formData = {
+    name: `${fname} ${lname}`,
+    email: email,
+    recommended_journey: getJourneyLabel(maxIdx),
+    score_j1: scores[0],
+    score_j2: scores[1],
+    score_j3: scores[2],
+    score_total: total,
+    j1_alignment: getStrengthLabel(scores[0]),
+    j2_alignment: getStrengthLabel(scores[1]),
+    j3_alignment: getStrengthLabel(scores[2]),
+    detailed_answers: answersText,
+    submitted_at: new Date().toLocaleString()
+  };
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  try {
+    const res = await fetch("https://formspree.io/f/xzdjeanl", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(formData)
+    });
+
+    if (res.ok) {
+      document.getElementById('assessment-form').classList.add('hidden');
+      document.getElementById('thank-you').classList.add('visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Submit My Assessment';
+      alert('There was an issue submitting. Please try again.');
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Submit My Assessment';
+    alert('Network error. Please check your connection and try again.');
+  }
+}
+</script>
+</body>
+</html>
